@@ -3,7 +3,7 @@
 
 - hosts: middlewares
   roles:
-    - { role: collectd,
+    - { role: valentinogagliardi.collectd,
         collectd_plugins:
           [{ plugin: "load" },
            { plugin: "memory" },

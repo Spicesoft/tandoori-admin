@@ -3,7 +3,7 @@
 
 - hosts: reverse_proxies
   roles:
-    - { role: collectd,
+    - { role: valentinogagliardi.collectd,
         collectd_plugins:
           [{ plugin: "load" },
            { plugin: "memory" },
