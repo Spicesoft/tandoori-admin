@@ -37,3 +37,19 @@
 
         tags: ["collectd"]
       }
+
+    - { role: geerlingguy.logstash-forwarder,
+        logstash_forwarder_logstash_server: 37.187.75.67,
+        logstash_forwarder_logstash_server_port: 5000,
+        logstash_ssl_dir: /etc/pki/tls/certs,
+        logstash_forwarder_ssl_certificate_file: logstash-forwarder.crt,
+
+        logstash_forwarder_files:
+        [ { paths: [
+              "/var/log/messages",
+              "/var/log/auth.log"
+            ],
+            fields: { type: syslog } } ],
+
+        tags: ["logstash"]
+      }

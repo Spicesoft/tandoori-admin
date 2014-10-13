@@ -1,0 +1,2 @@
+geerlingguy.logstash-forwarder
+valentinogagliardi.collectd

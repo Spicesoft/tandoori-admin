@@ -1,7 +1,7 @@
 ---
-# Mail servers
+# EDM servers
 
-- hosts: mailservers
+- hosts: edmservers
   roles:
     - { role: collectd,
         collectd_plugins:
@@ -27,11 +27,7 @@
               "/var/log/messages",
               "/var/log/auth.log"
             ],
-            fields: { type: syslog } },
-          { paths: [
-              "/var/log/mail.log"
-            ],
-            fields: { type: syslog } } ],
+            fields: { type: syslog } }, ],
 
         tags: ["logstash"]
       }

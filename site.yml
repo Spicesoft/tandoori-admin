@@ -5,3 +5,4 @@
 - include: middlewares.yml
 - include: databases.yml
 - include: mailservers.yml
+- include: edmservers.yml
