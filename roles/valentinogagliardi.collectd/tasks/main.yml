@@ -1,0 +1,8 @@
+---
+# tasks file for collectd
+
+- include: collectd_RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: collectd_Debian.yml
+  when: ansible_os_family == "Debian"

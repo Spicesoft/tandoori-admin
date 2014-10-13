@@ -1,6 +1,5 @@
 ---
 # Tandoori architecture
-
 - include: reverse_proxies.yml
 - include: middlewares.yml
 - include: databases.yml

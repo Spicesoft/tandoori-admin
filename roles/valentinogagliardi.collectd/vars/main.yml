@@ -1,0 +1,28 @@
+---
+# vars file for collectd
+
+collectd_packages_RedHat:
+ - { package: "collectd" }
+ - { package: "collectd-apache" }
+ - { package: "collectd-mysql" }
+
+collectd_packages_Debian:
+ - { package: "collectd" }
+ - { package: "collectd-utils" }
+
+collectd_global:
+ - { directive: "Hostname {{ ansible_fqdn }}" }
+ - { directive: "FQDNLookup false" }
+ - { directive: "Interval 10" }
+ - { directive: "Timeout 2" }
+ - { directive: "ReadThreads 5" }
+ - { directive: "AutoLoadPlugin false" }
+
+collectd_plugins: "none"
+collectd_plugins_multi: "none"
+
+collectd_conf_rh: "/etc/collectd.conf"
+collectd_conf_deb: "/etc/collectd/collectd.conf"
+
+collectd_include_rh: "/etc/collectd.d"
+collectd_include_deb: "/etc/collectd"

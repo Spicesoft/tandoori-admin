@@ -1,0 +1,20 @@
+---
+- name: Install CollectD on Debian OS Family
+  apt: pkg={{ item.package }}
+       update_cache=yes
+       state=latest
+  with_items: collectd_packages_{{ ansible_os_family }}
+  tags:
+   - collectd_install
+
+- name: Copy Main CollectD Configuration on Debian OS family
+  template: src=collectd.conf.j2
+            dest={{ collectd_conf_deb }}
+            backup=yes
+            owner=root
+            group=root
+            mode=0644
+  notify:
+   - restart collectd
+  tags:
+   - collectd_configure

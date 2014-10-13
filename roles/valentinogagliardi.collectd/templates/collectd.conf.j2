@@ -1,0 +1,49 @@
+# {{ ansible_managed }}
+
+{% if collectd_global is defined %}
+{% for element in collectd_global %}
+{{ element.directive }}
+{% endfor %}
+{% endif %}
+
+## Always load syslog plugin so we can investigate issues
+LoadPlugin syslog
+
+<Plugin "syslog">
+  LogLevel "info"
+</Plugin>
+
+{% if collectd_plugins is defined %}
+## In this section we define all the plugins which have no directives
+{% for element in collectd_plugins %}
+{% if element.plugin is defined %}
+LoadPlugin {{ element.plugin }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if collectd_plugins_multi is defined %}
+## In this section we define all the plugins which takes multiple directives
+{% for key,value in collectd_plugins_multi.iteritems() %}
+LoadPlugin {{ key }}
+
+<Plugin "{{ key }}">
+{% for key,value in value.items()|sort %}
+{% if key is number %}
+{# If key is a number, print only the value. This is a workaround to deal with <Instance ""> blocks. Better than nothing #}
+  {{ value }}
+{% else %}
+  {{ key }} {{ value }}
+{% endif %}
+{% endfor %}
+</Plugin>
+
+{% endfor %}
+{% endif %}
+
+{% if ansible_os_family == "RedHat" %}
+#Include "{{ collectd_include_rh }}/*.include.conf"
+{% endif %}
+{% if ansible_os_family == "Debian" %}
+#Include "{{ collectd_include_deb }}/*.include.conf"
+{% endif %}
