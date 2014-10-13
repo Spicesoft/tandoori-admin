@@ -1,7 +1,7 @@
 ---
-# Middleware servers
+# Mail servers
 
-- hosts: middlewares
+- hosts: mailservers
   roles:
     - { role: collectd,
         collectd_plugins:
@@ -10,8 +10,7 @@
            { plugin: "df" }],
 
         collectd_plugins_multi:
-        { interface: { 1: 'Interface "eth0"',
-                       2: 'Interface "eth1"' },
+        { interface: { Interface: '"eth0"' },
           network: { Server: '"37.187.75.67" "25826"' } },
 
         tags: ["collectd"]
