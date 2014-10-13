@@ -1,0 +1,19 @@
+---
+# Reverse proxy servers
+
+- hosts: reverse_proxies
+  roles:
+    - { role: collectd,
+        collectd_plugins:
+          [{ plugin: "load" },
+           { plugin: "memory" },
+           { plugin: "df" }],
+
+        collectd_plugins_multi:
+        { interface: { 1: 'Interface "eth0"',
+                       2: 'Interface "eth1"' },
+          nginx: { URL: '"http://{{ ansible_lo.ipv4.address }}/nginx_status"' },
+          network: { Server: '"37.187.75.67" "25826"' } },
+
+        tags: ["collectd"]
+      }

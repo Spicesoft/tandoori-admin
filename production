@@ -1,0 +1,17 @@
+[reverse_proxies]
+fiona.tandoori.pro
+francesca.tandoori.pro
+
+[middlewares]
+maeva.tandoori.pro
+mathilda.tandoori.pro
+
+[databases]
+daria.tandoori.pro
+daniela.tandoori.pro
+
+[mailservers]
+mailout.tandoori.pro
+
+[edmservers]
+edm-prod.tandoori.pro

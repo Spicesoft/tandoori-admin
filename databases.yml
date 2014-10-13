@@ -1,0 +1,39 @@
+---
+# Databases
+
+- hosts: databases
+  roles:
+    - { role: collectd,
+        collectd_plugins:
+          [{ plugin: "load" },
+           { plugin: "memory" },
+           { plugin: "df" }],
+
+        collectd_plugins_multi:
+        { interface: { 1: 'Interface "eth0"',
+                       2: 'Interface "eth1"' },
+          postgresql: { 1:  '<Query disk_usage>',
+                        2:  '   Statement "SELECT pg_database_size($1) AS size;"',
+                        3:  '   Param database',
+                        4:  '   <Result>',
+                        5:  '     Type pg_db_size',
+                        6:  '     ValuesFrom "size"',
+                        7:  '   </Result>',
+                        8:  '</Query>',
+                        9:  '<Database tandoori_nbo>',
+                        10: '  Host "127.0.0.1"',
+                        11: '  User "shinken"',
+                        12: '  Password "InojducGeam3"',
+                        13: '  Query disk_usage',
+                        14: '</Database>',
+                        15: '<Database tandoori_startway>',
+                        16: '  Host "127.0.0.1"',
+                        17: '  User "shinken"',
+                        18: '  Password "InojducGeam3"',
+                        19: '  Query disk_usage',
+                        20: '</Database>' },
+                      
+          network: { Server: '"37.187.75.67" "25826"' } },
+
+        tags: ["collectd"]
+      }
