@@ -15,3 +15,16 @@ mailout.tandoori.pro
 
 [edmservers]
 edm-prod.tandoori.pro
+
+[ovh:children]
+mailservers
+edmservers
+
+[online:children]
+reverse_proxies
+middlewares
+databases
+
+[production:children]
+ovh
+online
