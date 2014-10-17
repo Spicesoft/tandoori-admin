@@ -53,3 +53,6 @@
 
         tags: ["logstash"]
       }
+
+    - { role: tonioo.postfix,
+        tags: ["postfix"] }
