@@ -1,0 +1,38 @@
+# {{ ansible_managed }}
+
+# Internal Server TCP/10000
+mode server
+proto tcp
+port 10000
+dev tun0
+
+# Keys and certs
+ca ca.crt
+cert server.crt
+key server.key
+dh dh1024.pem
+tls-auth ta.key 0
+
+# Network
+server {{ virtual_network }}.0 {{ virtual_subnet }}
+push "dhcp-option DNS 213.251.188.1"
+keepalive 10 120
+
+# Security
+script-security 2
+user nobody
+group nogroup
+chroot /etc/openvpn/jail/
+persist-key
+persist-tun
+comp-lzo
+cipher AES-256-CBC
+
+# Static ip assignment
+client-config-dir /etc/openvpn/ccd/
+
+# Log
+verb 3
+mute 20
+status /var/log/openvpn-status.log
+log-append /var/log/openvpn.log

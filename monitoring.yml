@@ -1,0 +1,20 @@
+---
+# Monitoring server
+
+#OpenVPN Setup
+
+#Setup server and create certs to every hosts listed in production GROUP (not inventory)
+- hosts: monitoring
+  sudo: yes
+  remote_user: admin
+  roles:
+    - { role: mowee.openvpn,
+        tags: ["server, configure_clients"] }
+
+#Synchronize confs and certs from monitoring to every nodes
+- hosts: all
+  sudo: yes
+  remote_user: admin
+  roles:
+    - { role: mowee.openvpn,
+        tags: ["client"] }

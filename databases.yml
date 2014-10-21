@@ -32,7 +32,7 @@
                         18: '  Password "InojducGeam3"',
                         19: '  Query disk_usage',
                         20: '</Database>' },
-                      
+
           network: { Server: '"37.187.75.67" "25826"' } },
 
         tags: ["collectd"]

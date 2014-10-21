@@ -1,0 +1,6 @@
+---
+# vars file for openvpn
+virtual_network: "192.168.10."
+virtual_subnet: "255.255.255.0"
+openvpn_ip: "37.187.75.67"
+openvpn_port: "10000"

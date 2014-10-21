@@ -1,24 +1,28 @@
 [reverse_proxies]
-fiona.tandoori.pro
-francesca.tandoori.pro
+fiona.tandoori.pro v_inet=4 v_ptp=3
+francesca.tandoori.pro v_inet=6 v_ptp=5
 
 [middlewares]
-maeva.tandoori.pro
-mathilda.tandoori.pro
+maeva.tandoori.pro v_inet=8 v_ptp=7
+mathilda.tandoori.pro v_inet=10 v_ptp=9
 
 [databases]
-daria.tandoori.pro
-daniela.tandoori.pro
+daria.tandoori.pro v_inet=12 v_ptp=11
+daniela.tandoori.pro v_inet=14 v_ptp=13
 
 [mailservers]
-mailout.tandoori.pro
+mailout.tandoori.pro v_inet=16 v_ptp=15
 
 [edmservers]
-edm-prod.tandoori.pro
+edm-prod.tandoori.pro v_inet=18 v_ptp=17
+
+[monitoring]
+monitoring.tandoori.pro
 
 [ovh:children]
 mailservers
 edmservers
+monitoring
 
 [online:children]
 reverse_proxies
@@ -26,5 +30,8 @@ middlewares
 databases
 
 [production:children]
-ovh
-online
+reverse_proxies
+middlewares
+databases
+mailservers
+edmservers

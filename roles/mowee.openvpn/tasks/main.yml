@@ -1,0 +1,80 @@
+---
+# tasks file for Openvpn
+
+# - name: debug variables
+#   debug: msg="{{ hostvars[item]['v_inet'] }} {{ openvpn_ip }} {{ openvpn_port }}"
+#   with_items: groups['all']
+#   tags:
+#     - debug
+
+# Both
+
+- name: install and/or ensure openvpn is the latest version
+  apt: pkg=openvpn state=latest update_cache=yes
+  tags:
+    - client
+    - server
+
+# Server
+
+- name: copy server configuration to /etc/openvpn/
+  template:
+    src=server.conf.j2
+    dest=/etc/openvpn/server.conf
+    owner=root
+  tags:
+    - server
+
+- name: copy vars file
+  template:
+    src=vars.j2
+    dest=/etc/openvpn/vars
+    owner=root
+  tags:
+    - server
+
+- name: create client certs and conf
+  script:
+    createclient.sh {{ item }} {{ openvpn_ip }} {{ openvpn_port }}
+    creates=/etc/openvpn/clientconf/{{ item }}/{{ item }}.conf
+  with_items: groups['production']
+  tags:
+    - server
+    - configure_clients
+
+- name: create client-conf-dir for static ip assignment
+  command:
+    /bin/mkdir -p /etc/openvpn/ccd/
+  tags:
+    - server
+    - configure_clients
+
+- name: create specific static ip file for every nodes
+  shell:
+    /bin/echo "ifconfig-push {{ virtual_network }}{{ hostvars[item]['v_inet'] }}
+    {{ virtual_network }}{{ hostvars[item]['v_ptp'] }}"
+    > /etc/openvpn/ccd/{{ item }}
+  with_items: groups['production']
+  tags:
+    - server
+    - configure_clients
+
+# Client
+
+- name: fetch clients confs and certs to local /tmp/
+  copy:
+    src=/etc/openvpn/clientconf/{{ item }}
+    dest=/tmp/{{ item }}/
+  with_items: groups['production']
+  tags:
+    - client
+
+- name: copy clients confs and certs from local to remote nodes
+  synchronize:
+    mode=pull
+    delete=yes
+    src=/tmp/{{ item }}/
+    dest=/etc/openvpn/
+  with_items: groups['production']
+  tags:
+    - client
