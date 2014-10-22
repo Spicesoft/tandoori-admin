@@ -34,12 +34,20 @@
   command:
     /bin/mkdir -p /etc/openvpn/ccd/
 
+- name: create ccd for jail
+  command:
+    /bin/mkdir -p /etc/openvpn/jail/ccd/
+
 - name: create specific static ip file for every nodes
   shell:
-    /bin/echo "ifconfig-push {{ virtual_network }}{{ hostvars[item]['v_inet'] }}
-    {{ virtual_network }}{{ hostvars[item]['v_ptp'] }}"
+    /bin/echo "ifconfig-push {{ virtual_network }}{{ hostvars[item]['v_ptp'] }} 
+    {{ virtual_network }}{{ hostvars[item]['v_inet'] }}"
     > /etc/openvpn/ccd/{{ item }}
   with_items: groups['production']
+
+- name: copy ccd content to jail
+  command:
+    cp -R /etc/openvpn/ccd/ /etc/openvpn/jail/ccd/
 
 - name: Restart OpenVPN
   action: service name=openvpn state=restarted
