@@ -14,7 +14,7 @@ dh dh1024.pem
 tls-auth ta.key 0
 
 # Network
-server {{ virtual_network }}.0 {{ virtual_subnet }}
+server {{ virtual_network }}0 {{ virtual_subnet }}
 push "dhcp-option DNS 213.251.188.1"
 keepalive 10 120
 

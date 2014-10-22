@@ -19,16 +19,17 @@ echo "Missing parameters: <node> <openvpn_ip> <openvpn_port>" 1>&2
   exit 1
 fi
 
-cd ${VPN_DIR}
+cd ${VPN_DIR}easy-rsa/
 
 # Create client without password
 source vars
-./pkitool $1
+KEY_CN=$1 ./pkitool $1
 
-sudo mkdir ${VPN_DIR}clientconf/$1
-sudo cp ca.crt ta.key keys/$1.crt keys/$1.key clientconf/$1/
-touch clientconf/$1/$1.conf
-cat >> clientconf/$1/$1.conf << EOF
+sudo mkdir -p ${VPN_DIR}clientconf/
+sudo mkdir -p ${VPN_DIR}clientconf/$1
+sudo cp keys/ca.crt keys/ta.key keys/$1.crt keys/$1.key ${VPN_DIR}clientconf/$1/
+touch ${VPN_DIR}clientconf/$1/$1.conf
+cat >> ${VPN_DIR}clientconf/$1/$1.conf << EOF
 # Client
 client
 dev tun
@@ -47,5 +48,5 @@ persist-key
 persist-tun
 comp-lzo
 verb 3
-script-security 3 system
+script-security 3
 EOF

@@ -1,0 +1,40 @@
+---
+# Monitoring server
+
+#OpenVPN Setup
+
+#Setup server and create certs to every hosts listed in production GROUP (not inventory)
+
+- hosts: monitoring
+  sudo: yes
+  remote_user: admin
+  roles:
+    - { role: mowee.openvpn }
+  tags:
+    - server
+
+#Setup nodes and copy confs and certs
+
+- hosts: production
+  sudo: yes
+  remote_user: admin
+  tasks:
+
+  - name: install and/or ensure openvpn is the latest version
+    apt: pkg=openvpn state=latest update_cache=yes
+    tags:
+      - client
+
+  - name: copy confs and certs to nodes
+    copy:
+      force=yes
+      directory_mode=yes
+      src=/tmp/{{ ansible_fqdn }}/
+      dest=/etc/openvpn/
+    tags:
+      - client
+
+  - name: Restart OpenVPN
+    action: service name=openvpn state=restarted
+    tags:
+      - client
