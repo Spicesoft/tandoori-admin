@@ -1,0 +1,4 @@
+# Global vars
+
+virtual_network: "192.168.10."
+virtual_subnet: "255.255.255.0"

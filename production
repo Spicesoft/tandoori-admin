@@ -35,3 +35,8 @@ middlewares
 databases
 mailservers
 edmservers
+
+[production-websites]
+clients.blueoffice.nexity.fr
+blueoffice.nexity.fr
+start-way.tandoori.pro

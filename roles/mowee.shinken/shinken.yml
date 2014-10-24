@@ -1,0 +1,22 @@
+---
+# Shinken Playbook
+
+# Setup nodes
+
+- hosts: production
+  sudo: yes
+  remote_user: admin
+  tasks:
+    - include: tasks/clients.yml
+  tags:
+    - client
+
+# Setup monitoring server
+
+- hosts: monitoring
+  sudo: yes
+  remote_user: admin
+  tasks:
+    - include: tasks/server.yml
+  tags:
+    - server

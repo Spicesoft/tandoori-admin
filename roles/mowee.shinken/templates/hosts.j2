@@ -1,0 +1,7 @@
+define host{
+        use                     linux-snmp
+        contact_groups          admins
+        host_name               {{ hostvars[item]['inventory_hostname'] }}
+        address                 {{ virtual_network }}{{ hostvars[item]['v_inet'] }}
+        _SNMPCOMMUNITY          tandoori
+        }

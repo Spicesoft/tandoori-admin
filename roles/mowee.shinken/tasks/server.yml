@@ -1,0 +1,31 @@
+---
+# tasks file for shinken
+
+- name: install linux-snmp pack
+  command:
+    shinken install linux-snmp
+
+- name: create symbolic link to fix missing utils.pm in perl5
+  command:
+    ln -s /usr/lib/nagios/plugins/utils.pm /usr/share/perl5/
+  args:
+    creates: /usr/share/perl5/utils.pm
+
+- name: set uid to root for check_icmp plugins to get generic-host working
+  command:
+    chmod u+s /usr/lib/nagios/plugins/check_icmp
+
+- name: setup hosts
+  template:
+    src=hosts.j2
+    dest=/etc/shinken/hosts/{{ item }}.cfg
+  with_items:
+    groups['production']
+
+- name: customized linux-snmp pack
+  copy:
+    src=linux-snmp/
+    dest=/etc/shinken/packs/
+
+- name: restart shinken
+  action: service name=shinken state=restarted
