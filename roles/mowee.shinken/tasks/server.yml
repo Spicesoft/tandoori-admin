@@ -3,7 +3,22 @@
 
 - name: install linux-snmp pack
   command:
-    shinken install linux-snmp
+    shinken install {{ item }}
+  with_items:
+    - ['linux-snmp', 'http', 'postgresql']
+
+- name: instlal check_postgres nagios plugins
+  copy:
+    src=check_postgres.pl
+    dest=/var/lib/shinken/libexec/
+
+- name: set uid to root for check_postgres
+  command:
+    chmod u+s /var/lib/shinken/libexec/check_postgres.pl
+
+- name: make it executable
+  command:
+    chmod +x /var/lib/shinken/libexec/check_postgres.pl
 
 - name: create symbolic link to fix missing utils.pm in perl5
   command:
@@ -19,8 +34,9 @@
   template:
     src=hosts.j2
     dest=/etc/shinken/hosts/{{ item }}.cfg
-  with_items:
-    groups['production']
+  with_flattened:
+    - groups['production']
+    - groups['production-websites']
 
 - name: customized linux-snmp pack
   copy:
