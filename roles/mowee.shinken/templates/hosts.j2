@@ -1,7 +1,26 @@
+{% if item in groups['production'] %}
 define host{
+        {% if item in groups['databases'] %}
+        use                     linux-snmp, postgresql
+        {% else %}
         use                     linux-snmp
+        {% endif %}
         contact_groups          admins
         host_name               {{ hostvars[item]['inventory_hostname'] }}
         address                 {{ virtual_network }}{{ hostvars[item]['v_inet'] }}
         _SNMPCOMMUNITY          tandoori
+        {% if item in groups['databases'] %}
+        _POSTGRESQLUSER         shinken
+        _POSTGRESQLPASSWORD     InojducGeam3
+        _POSTGRESQLPORT         5432
+        {% endif %}
         }
+{% endif %}
+{% if item in groups['production-websites'] %}
+define host{
+        use                     http
+        contact_groups          admins
+        host_name               {{ hostvars[item]['inventory_hostname'] }}
+        address                 {{ hostvars[item]['inventory_hostname'] }}
+        }
+{% endif %}

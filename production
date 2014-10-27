@@ -17,7 +17,7 @@ mailout.tandoori.pro v_inet=16 v_ptp=15
 edm-prod.tandoori.pro v_inet=18 v_ptp=17
 
 [monitoring]
-monitoring.tandoori.pro
+monitoring.tandoori.pro #do not set ips, its the monitoring root server
 
 [ovh:children]
 mailservers
