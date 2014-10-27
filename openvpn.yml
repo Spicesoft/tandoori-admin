@@ -29,7 +29,7 @@
     copy:
       force=yes
       directory_mode=yes
-      src=/tmp/{{ ansible_fqdn }}/
+      src=/tmp/{{ ansible_nodename }}/
       dest=/etc/openvpn/
     tags:
       - client
