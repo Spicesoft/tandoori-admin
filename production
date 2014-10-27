@@ -37,6 +37,7 @@ mailservers
 edmservers
 
 [production-websites]
+tandoori.pro
 clients.blueoffice.nexity.fr
 blueoffice.nexity.fr
 start-way.tandoori.pro

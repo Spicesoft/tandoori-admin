@@ -25,7 +25,7 @@
 - name: customized linux-snmp pack
   copy:
     src=linux-snmp/
-    dest=/etc/shinken/packs/
+    dest=/etc/shinken/packs/linux-snmp/
 
 - name: restart shinken
   action: service name=shinken state=restarted
