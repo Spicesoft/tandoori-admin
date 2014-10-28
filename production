@@ -16,10 +16,14 @@ mailout.tandoori.pro v_inet=16 v_ptp=15
 [edmservers]
 edm-prod.tandoori.pro v_inet=18 v_ptp=17
 
+[website]
+tandoori.pro v_inet=20 v_ptp=19
+
 [monitoring]
 monitoring.tandoori.pro #do not set ips, its the monitoring root server
 
 [ovh:children]
+website
 mailservers
 edmservers
 monitoring
@@ -30,6 +34,7 @@ middlewares
 databases
 
 [production:children]
+website
 reverse_proxies
 middlewares
 databases
@@ -37,7 +42,6 @@ mailservers
 edmservers
 
 [production-websites]
-tandoori.pro
 clients.blueoffice.nexity.fr
 blueoffice.nexity.fr
 start-way.tandoori.pro
