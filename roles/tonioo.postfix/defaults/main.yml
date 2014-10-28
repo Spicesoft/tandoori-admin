@@ -1,4 +1,4 @@
 ---
 # defaults file for postfix
-smtpd_use_tls: no
+smtpd_use_tls: "no"
 relayhost: mailout.tandoori.pro
