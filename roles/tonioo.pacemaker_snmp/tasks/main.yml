@@ -1,0 +1,33 @@
+---
+# tasks file for tonioo.pacemaker_snmp
+
+- name: Copy MIB files
+  copy: src={{ item }} dest=/usr/share/snmp/mibs/
+  with_items:
+    - PACEMAKER.mib
+    - SYS4.mib
+  tags:
+    - snmp_all
+
+- name: Copy SNMP subagent
+  copy: src=pcmk-subagent.pl dest=/usr/local/sbin/ mode=0755
+  tags:
+    - snmp_client
+
+- name: Install PERL dependencies
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - libswitch-perl
+    - libxml-simple-perl
+    - libsnmp-perl
+
+  tags:
+    - snmp_client
+
+- name: Update snmpd configuration
+  lineinfile: dest=/etc/snmp/snmpd.conf line="perl do '/usr/local/sbin/pcmk-subagent.pl'"
+  notify:
+    - restart snmpd
+
+  tags:
+    - snmp_client

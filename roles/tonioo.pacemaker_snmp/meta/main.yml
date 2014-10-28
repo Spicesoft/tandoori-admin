@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Antoine Nguyen
+  description: Install and configure Pacemaker SNMP subagent
+  company: Spicesoft
+  license: MIT
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Debian
+    versions:
+      - wheezy
+
+  categories:
+    - monitoring
+    - system
+
+dependencies: []

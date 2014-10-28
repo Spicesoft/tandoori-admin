@@ -1,0 +1,6 @@
+---
+# Monitoring server
+
+- hosts: monitoring
+  roles:
+    - { role: tonioo.pacemaker_snmp }
