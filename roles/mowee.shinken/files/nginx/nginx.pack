@@ -1,0 +1,13 @@
+{
+    "name":"nginx",
+    "description":"Nginx status checks active connections, requetsts and connections per seconds",
+    "path":"os/",
+    "macros":{
+        "_NGINX_WARN": {"type":"string",
+            "description": "Nginx status reached to warning level at 5000 active connections or 100 req/s or 200 conn/s"
+        },
+        "_NGINX_CRIT": {"type":"string",
+            "description": "Nginx status reached to critical level at 10000 active connections or 200 req/s or 300 conn/s"
+        },
+    }
+}

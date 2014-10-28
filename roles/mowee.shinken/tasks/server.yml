@@ -44,10 +44,13 @@
     - groups['production']
     - groups['production-websites']
 
-- name: customized linux-snmp pack
+- name: customized packs
   copy:
-    src=linux-snmp/
-    dest=/etc/shinken/packs/linux-snmp/
+    src={{ item }}/
+    dest=/etc/shinken/packs/{{ item }}/
+  with_items:
+    - ['linux-snmp', 'nginx']
+
 
 - name: restart shinken
   action: service name=shinken state=restarted

@@ -2,6 +2,8 @@
 define host{
         {% if item in groups['databases'] %}
         use                     linux-snmp, postgresql
+        {% elif item in groups['reverse_proxies'] %}
+        use                     linux-snmp, nginx
         {% else %}
         use                     linux-snmp
         {% endif %}
