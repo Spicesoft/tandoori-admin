@@ -7,18 +7,24 @@
   with_items:
     - ['linux-snmp', 'http', 'postgresql']
 
-- name: instlal check_postgres nagios plugins
+- name: install additional nagios plugins
   copy:
-    src=check_postgres.pl
+    src={{ item }}
     dest=/var/lib/shinken/libexec/
+  with_items:
+    - ['check_postgres.pl', 'check_nginx_status.pl']
 
-- name: set uid to root for check_postgres
+- name: set uid to root for plugins
   command:
-    chmod u+s /var/lib/shinken/libexec/check_postgres.pl
+    chmod u+s /var/lib/shinken/libexec/{{ item }}
+  with_items:
+    - ['check_postgres.pl', 'check_nginx_status.pl']
 
-- name: make it executable
+- name: make them executable
   command:
-    chmod +x /var/lib/shinken/libexec/check_postgres.pl
+    chmod +x /var/lib/shinken/libexec/{{ item }}
+  with_items:
+    - ['check_postgres.pl', 'check_nginx_status.pl']
 
 - name: create symbolic link to fix missing utils.pm in perl5
   command:
