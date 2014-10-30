@@ -52,5 +52,9 @@
     - ['linux-snmp', 'nginx']
 
 
+- name: customized pacemaker pack
+  copy:
+    src=pacemaker/ dest=/etc/shinken/packs/pacemaker/
+
 - name: restart shinken
   action: service name=shinken state=restarted

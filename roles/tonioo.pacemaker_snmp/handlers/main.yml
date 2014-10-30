@@ -2,7 +2,4 @@
 # handlers file for tonioo.pacemaker_snmp
 
 - name: restart snmpd
-  service: >
-    name=snmpd
-    state=restarted
-    enabled=true
+  service: name=snmpd state=restarted

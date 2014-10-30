@@ -1,7 +1,7 @@
 #  Listen for connections on all interfaces (both IPv4 *and* IPv6)
-agentAddress udp:161,udp6:[::1]:161
+agentAddress 192.168.10.{{ v_inet }}:161
 
-rocommunity tandoori  192.168.10.0/24
+rocommunity tandoori  192.168.10.1
 rocommunity tandoori  localhost
 
 #  Full read-only access for SNMPv3
@@ -60,7 +60,7 @@ load   12 10 5
 
                                     #   send SNMPv1  traps
 trapsink        localhost tandoori
-trapsink        192.168.10.0/24 tandoori
+trapsink        192.168.10.1 tandoori
                                     #   send SNMPv2c traps
 #trap2sink    localhost public
                                     #   send SNMPv2c INFORMs

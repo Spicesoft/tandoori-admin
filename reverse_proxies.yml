@@ -36,3 +36,6 @@
 
     - { role: tonioo.postfix,
         tags: ["postfix"] }
+
+    - { role: tonioo.pacemaker_snmp,
+        tags: ["snmp", "client"] }

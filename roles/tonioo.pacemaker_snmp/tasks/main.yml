@@ -26,6 +26,12 @@
 
 - name: Update snmpd configuration
   lineinfile: dest=/etc/snmp/snmpd.conf line="perl do '/usr/local/sbin/pcmk-subagent.pl'"
+  
+  tags:
+    - snmp_client
+
+- name: Ensure snmpd runs as root
+  lineinfile: dest=/etc/default/snmpd regexp=^SNMPDOPTS line=SNMPDOPTS="'-Lsd -Lf /tmp/snmpd.log -V -I -smux -p /var/run/snmpd.pid'"
   notify:
     - restart snmpd
 

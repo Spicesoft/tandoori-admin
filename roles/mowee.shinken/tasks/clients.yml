@@ -5,8 +5,8 @@
   apt: pkg=snmpd state=latest update_cache=yes
 
 - name: setup snmpd.conf
-  copy:
-    src=snmpd.conf
+  template:
+    src=snmpd.conf.j2
     dest=/etc/snmp/snmpd.conf
 
 - name: restart snmpd

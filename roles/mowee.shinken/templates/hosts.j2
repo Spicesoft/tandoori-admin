@@ -3,7 +3,7 @@ define host{
         {% if item in groups['databases'] %}
         use                     linux-snmp, postgresql
         {% elif item in groups['reverse_proxies'] %}
-        use                     linux-snmp, nginx
+        use                     linux-snmp, nginx, pacemaker-snmp-node
         {% else %}
         use                     linux-snmp
         {% endif %}
@@ -11,6 +11,10 @@ define host{
         host_name               {{ hostvars[item]['inventory_hostname'] }}
         address                 {{ virtual_network }}{{ hostvars[item]['v_inet'] }}
         _SNMPCOMMUNITY          tandoori
+        {% if item in groups['reverse_proxies'] %}
+        _NODES_WARN             1
+        _NODES_CRIT             0
+        {% endif %}
         {% if item in groups['databases'] %}
         _POSTGRESQLUSER         shinken
         _POSTGRESQLPASSWORD     InojducGeam3

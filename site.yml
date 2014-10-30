@@ -5,3 +5,4 @@
 - include: databases.yml
 - include: mailservers.yml
 - include: edmservers.yml
+- include: monitoring.yml
