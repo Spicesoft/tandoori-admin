@@ -35,3 +35,11 @@
 
     - { role: tonioo.postfix,
         tags: ["postfix"] }
+
+  tasks:
+    - name: Install monitoring packages
+      apt: pkg={{ item }} state=latest update_cache=yes
+      with_items:
+        - uwsgi-plugin-ping
+
+      tags: monitoring

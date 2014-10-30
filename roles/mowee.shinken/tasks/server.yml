@@ -44,17 +44,25 @@
     - groups['production']
     - groups['production-websites']
 
-- name: customized packs
+- name: setup additional hosts (dummy)
+  synchronize: src=hosts/ dest=/etc/shinken/hosts/
+
+- name: customized packs (shinken)
   copy:
     src={{ item }}/
     dest=/etc/shinken/packs/{{ item }}/
   with_items:
     - ['linux-snmp', 'nginx']
 
-
-- name: customized pacemaker pack
+- name: customized packs (tandoori)
   copy:
-    src=pacemaker/ dest=/etc/shinken/packs/pacemaker/
+    src={{ item }}/ dest=/etc/shinken/packs/{{ item }}
+  with_items:
+    - pacemaker
+    - uwsgi
+
+- name: custom services
+  synchronize: src=services/ dest=/etc/shinken/services/
 
 - name: restart shinken
   action: service name=shinken state=restarted
