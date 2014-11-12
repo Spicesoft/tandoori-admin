@@ -3,6 +3,9 @@
 
 - hosts: reverse_proxies
   roles:
+    - { role: tonioo.server_setup,
+        tags: ["base"] }
+
     - { role: valentinogagliardi.collectd,
         collectd_plugins:
           [{ plugin: "load" },

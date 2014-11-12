@@ -12,7 +12,7 @@
     src={{ item }}
     dest=/var/lib/shinken/libexec/
   with_items:
-    - ['check_postgres.pl', 'check_nginx_status.pl']
+    - ['check_postgres.pl', 'check_nginx_status.pl', 'check_apt_via_snmp']
 
 - name: set uid to root for plugins
   command:
@@ -24,7 +24,7 @@
   command:
     chmod +x /var/lib/shinken/libexec/{{ item }}
   with_items:
-    - ['check_postgres.pl', 'check_nginx_status.pl']
+    - ['check_postgres.pl', 'check_nginx_status.pl', 'check_apt_via_snmp']
 
 - name: create symbolic link to fix missing utils.pm in perl5
   command:
@@ -60,6 +60,7 @@
   with_items:
     - pacemaker
     - uwsgi
+    - apt
 
 - name: custom services
   synchronize: src=services/ dest=/etc/shinken/services/

@@ -1,0 +1,11 @@
+---
+# Base servers setup
+
+- name: enable automatic apt update
+  copy: src=02periodic
+        dest=/etc/apt/apt.conf.d
+        owner=root
+        group=root
+        mode=0644
+  tags: base
+  

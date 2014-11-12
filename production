@@ -1,26 +1,26 @@
 [reverse_proxies]
-fiona.tandoori.pro v_inet=4 v_ptp=3
-francesca.tandoori.pro v_inet=6 v_ptp=5
+fiona.tandoori.pro v_inet=4 v_ptp=3 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt"
+francesca.tandoori.pro v_inet=6 v_ptp=5 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt"
 
 [middlewares]
-maeva.tandoori.pro v_inet=8 v_ptp=7
-mathilda.tandoori.pro v_inet=10 v_ptp=9
+maeva.tandoori.pro v_inet=8 v_ptp=7 host_templates="linux-snmp, apt"
+mathilda.tandoori.pro v_inet=10 v_ptp=9 host_templates="linux-snmp, apt"
 
 [databases]
-daria.tandoori.pro v_inet=12 v_ptp=11
-daniela.tandoori.pro v_inet=14 v_ptp=13
+daria.tandoori.pro v_inet=12 v_ptp=11 host_templates="linux-snmp, postgresql, apt"
+daniela.tandoori.pro v_inet=14 v_ptp=13 host_templates="linux-snmp, postgresql, apt"
 
 [mailservers]
-mailout.tandoori.pro v_inet=16 v_ptp=15
+mailout.tandoori.pro v_inet=16 v_ptp=15 host_templates="linux-snmp, apt"
 
 [edmservers]
-edm-prod.tandoori.pro v_inet=18 v_ptp=17
+edm-prod.tandoori.pro v_inet=18 v_ptp=17 host_templates="linux-snmp, apt"
 
 [website]
-tandoori.pro v_inet=20 v_ptp=19
+tandoori.pro v_inet=20 v_ptp=19 host_templates="linux-snmp"
 
 [monitoring]
-monitoring.tandoori.pro #do not set ips, its the monitoring root server
+monitoring.tandoori.pro host_templates="linux-snmp, apt" #do not set ips, its the monitoring root server
 
 [ovh:children]
 website

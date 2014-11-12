@@ -11,3 +11,7 @@
 
 - name: restart snmpd
   action: service name=snmpd state=restarted
+
+- name: install nagios plugins
+  apt: pkg=nagios-plugins state=latest update_cache=yes
+  
