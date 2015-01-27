@@ -42,6 +42,7 @@ mailservers
 edmservers
 
 [production-websites]
-clients.blueoffice.nexity.fr
-blueoffice.nexity.fr
+clients.blueoffice.nexity.fr 
+blueoffice.nexity.fr check_command="check_http"
 start-way.tandoori.pro
+clients.bureauxetcie.com

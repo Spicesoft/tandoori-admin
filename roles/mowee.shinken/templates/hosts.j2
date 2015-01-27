@@ -17,10 +17,11 @@ define host {
 }
 {% endif %}
 {% if item in groups['production-websites'] %}
-define host{
+define host {
         use                     http
         contact_groups          admins
         host_name               {{ hostvars[item]['inventory_hostname'] }}
         address                 {{ hostvars[item]['inventory_hostname'] }}
-        }
+        check_command           {{ hostvars[item]['check_command'] | default("check_host_alive") }}
+}
 {% endif %}
