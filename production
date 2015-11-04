@@ -16,14 +16,10 @@ mailout.tandoori.pro v_inet=16 v_ptp=15 host_templates="linux-snmp, apt"
 [edmservers]
 edm-prod.tandoori.pro v_inet=18 v_ptp=17 host_templates="linux-snmp, apt"
 
-[website]
-tandoori.pro v_inet=20 v_ptp=19 host_templates="linux-snmp"
-
 [monitoring]
 monitoring.tandoori.pro host_templates="linux-snmp, apt" #do not set ips, its the monitoring root server
 
 [ovh:children]
-website
 mailservers
 edmservers
 monitoring
@@ -34,7 +30,6 @@ middlewares
 databases
 
 [production:children]
-website
 reverse_proxies
 middlewares
 databases
@@ -43,6 +38,16 @@ edmservers
 
 [production-websites]
 clients.blueoffice.nexity.fr 
-blueoffice.nexity.fr check_command="check_http"
 start-way.tandoori.pro
 clients.bureauxetcie.com
+clients.nextdoor.fr
+rivp.tandoori.pro
+dojocrea.tandoori.pro
+
+# Heroku
+tandoori.pro check_command="check_http"
+spicesoft.pro check_command="check_http"
+blueoffice.nexity.fr check_command="check_http"
+
+# Infomaniak
+cowork.io check_command="check_http"

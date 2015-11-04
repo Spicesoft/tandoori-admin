@@ -44,9 +44,11 @@
     - groups['production']
     - groups['production-websites']
 
-- name: setup additional hosts (dummy)
-  synchronize: src=hosts/ dest=/etc/shinken/hosts/
-
+- name: setup additional configuration
+  synchronize: src={{ item }} dest=/etc/shinken/{{ item }}
+  with_items:
+    - ["hosts", "commands", "notificationways"]
+  
 - name: customized packs (shinken)
   copy:
     src={{ item }}/
