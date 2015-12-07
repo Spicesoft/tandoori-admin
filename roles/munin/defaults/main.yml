@@ -1,0 +1,4 @@
+---
+
+munin_plugin_dest_path: /etc/munin/plugins/
+munin_plugin_src_path: /usr/share/munin/

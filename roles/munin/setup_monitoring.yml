@@ -1,0 +1,45 @@
+---
+# Monitoring update
+
+# Setup nodes
+
+- hosts: production
+  vars:
+    - munin_plugin_dest_path: /etc/munin/plugins/
+    - munin_plugin_src_path: /usr/share/munin/
+    - munin_node_plugins_database:
+        - name: if_eth0
+          plugin: plugins/if_
+    - munin_node_plugins_middleware:
+        - name: if_eth0
+          plugin: plugins/if_
+        - name: uwsgi_average
+          plugin: contrib/plugins/uwsgi/uwsgi_
+
+    - munin_node_plugins_reverse_proxy:
+        - name: nginx_status
+          plugin: plugins/nginx_status
+        - name: nginx_request
+          plugin: plugins/nginx_request
+
+    - munin_node_plugins_mailserver:
+        - name: if_eth0
+          plugin: plugins/if_
+
+    - munin_node_plugins_edmserver:
+        - name: if_eth0
+          plugin: plugins/if_
+
+  sudo: yes
+  remote_user: admin
+  tasks:
+    - include: tasks/nodes.yml
+  tags: nodes
+
+# Setup server
+- hosts: monitoring
+  sudo: yes
+  remote_user: admin
+  tasks:
+    - include: tasks/server.yml
+  tags: server

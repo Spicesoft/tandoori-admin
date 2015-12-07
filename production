@@ -1,20 +1,20 @@
 [reverse_proxies]
-fiona.tandoori.pro v_inet=4 v_ptp=3 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt"
-francesca.tandoori.pro v_inet=6 v_ptp=5 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt"
+fiona.tandoori.pro v_inet=4 v_ptp=3 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt" munin_group="reverse_proxy"
+francesca.tandoori.pro v_inet=6 v_ptp=5 host_templates="linux-snmp, nginx, pacemaker-snmp-node, apt" munin_group="reverse_proxy"
 
 [middlewares]
-maeva.tandoori.pro v_inet=8 v_ptp=7 host_templates="linux-snmp, apt"
-mathilda.tandoori.pro v_inet=10 v_ptp=9 host_templates="linux-snmp, apt"
+maeva.tandoori.pro v_inet=8 v_ptp=7 host_templates="linux-snmp, apt" munin_group="middleware"
+mathilda.tandoori.pro v_inet=10 v_ptp=9 host_templates="linux-snmp, apt" munin_group="middleware"
 
 [databases]
-daria.tandoori.pro v_inet=12 v_ptp=11 host_templates="linux-snmp, postgresql, apt"
-daniela.tandoori.pro v_inet=14 v_ptp=13 host_templates="linux-snmp, postgresql, apt"
+daria.tandoori.pro v_inet=12 v_ptp=11 host_templates="linux-snmp, postgresql, apt" munin_group="database"
+daniela.tandoori.pro v_inet=14 v_ptp=13 host_templates="linux-snmp, postgresql, apt" munin_group="database"
 
 [mailservers]
-mailout.tandoori.pro v_inet=16 v_ptp=15 host_templates="linux-snmp, apt"
+mailout.tandoori.pro v_inet=16 v_ptp=15 host_templates="linux-snmp, apt" munin_group="mailserver"
 
 [edmservers]
-edm-prod.tandoori.pro v_inet=18 v_ptp=17 host_templates="linux-snmp, apt"
+edm-prod.tandoori.pro v_inet=18 v_ptp=17 host_templates="linux-snmp, apt" munin_group="edmserver"
 
 [monitoring]
 monitoring.tandoori.pro host_templates="linux-snmp, apt" #do not set ips, its the monitoring root server

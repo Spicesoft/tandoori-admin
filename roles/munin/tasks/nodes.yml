@@ -1,0 +1,33 @@
+---
+# Setup munin node
+
+- name: install munin
+  apt: pkg=munin-node state=latest update_cache=yes
+
+- name: Install contrib additional plugins.
+  git:
+    repo=https://github.com/munin-monitoring/contrib.git
+    dest=/usr/share/munin/contrib
+    
+
+- name: copy configuration file
+  template:
+    src=munin-node.conf.j2
+    dest=/etc/munin/munin-node.conf
+    owner=root
+    group=root
+    mode=0644
+  notify:
+    - restart munin-node
+
+- name: Activate node plugins.
+  file: >
+    path={{ munin_plugin_dest_path }}{{ item.name }}
+    src={{ munin_plugin_src_path }}{{ item.plugin }}
+    state=link
+  with_items: munin_node_plugins_{{ munin_group }}
+  notify: restart munin-node
+  tags: plugins
+
+- name: Ensure munin-node is running.
+  service: name=munin-node state=started enabled=yes

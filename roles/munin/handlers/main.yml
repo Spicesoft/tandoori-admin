@@ -1,0 +1,8 @@
+---
+# Handlers
+
+- name: restart munin
+  service: name=munin state=restarted enabled=true
+
+- name: restart munin-node
+  service: name=munin-node state=restarted enabled=true

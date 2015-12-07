@@ -1,0 +1,15 @@
+---
+# Tasks for Munin server
+
+- name: install munin
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - munin
+    - munin-node
+
+- name: copy main configuration file
+  template: src=munin.conf.j2 dest=/etc/munin/munin.conf owner=root group=root mode=0664
+  notify:
+    - restart munin
+
+

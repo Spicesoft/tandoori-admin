@@ -1,0 +1,24 @@
+---
+# Variables
+
+munin_node_plugins_database:
+  - name: if_eth0
+    plugin: plugins/if_
+
+munin_node_plugins_middleware:
+  - name: if_eth0
+    plugin: plugins/if_
+  - name: uwsgi_average
+    plugin: contrib/plugins/uwsgi/uwsgi_
+
+munin_node_plugins_reverse_proxy:
+  - name: if_eth0
+    plugin: plugins/if_
+
+munin_node_plugins_mailserver:
+  - name: if_eth0
+    plugin: plugins/if_
+
+munin_node_plugins_edmserver:
+  - name: if_eth0
+    plugin: plugins/if_
