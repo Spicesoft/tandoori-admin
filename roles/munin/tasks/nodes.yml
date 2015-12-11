@@ -8,7 +8,12 @@
   git:
     repo=https://github.com/munin-monitoring/contrib.git
     dest=/usr/share/munin/contrib
-    
+
+- name: Install pgpool plugin.
+  git:
+    repo=https://github.com/vpetersson/munin_pgpool
+    dest=/usr/share/munin/munin_pgpool
+  when: munin_group == "middleware"
 
 - name: copy configuration file
   template:
