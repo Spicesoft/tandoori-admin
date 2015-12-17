@@ -8,34 +8,46 @@
     - munin_plugin_dest_path: /etc/munin/plugins/
     - munin_plugin_src_path: /usr/share/munin/
     - munin_node_plugins_database:
+        - name: apt
+          plugin: plugins/apt
         - name: postgres_connections_db
           plugin: plugins/postgres_connections_db
         - name: postgres_xlog
           plugin: plugins/postgres_xlog
         - name: postgres_size_ALL
           plugin: plugins/postgres_size_
+        - name: redis_connected_clients
+          plugin: contrib/plugins/redis/redis_
+        - name: redis_per_sec
+          plugin: contrib/plugins/redis/redis_
+        - name: redis_used_memory
+          plugin: contrib/plugins/redis/redis_
+        - name: redis_speed
+          plugin: contrib/plugins/redis/redis-speed
+        - name: resque
+          plugin: contrib/plugins/redis/resque
 
     - munin_node_plugins_middleware:
-        - name: if_eth0
-          plugin: plugins/if_
-        - name: uwsgi_average
-          plugin: contrib/plugins/uwsgi/uwsgi_
+        - name: apt
+          plugin: plugins/apt
         - name: pgpool_connections
           plugin: munin_pgpool/pgpool_connections
 
     - munin_node_plugins_reverse_proxy:
+        - name: apt
+          plugin: plugins/apt        
         - name: nginx_status
           plugin: plugins/nginx_status
         - name: nginx_request
           plugin: plugins/nginx_request
 
     - munin_node_plugins_mailserver:
-        - name: if_eth0
-          plugin: plugins/if_
+        - name: apt
+          plugin: plugins/apt
 
     - munin_node_plugins_edmserver:
-        - name: if_eth0
-          plugin: plugins/if_
+        - name: apt
+          plugin: plugins/apt
 
   sudo: yes
   remote_user: admin

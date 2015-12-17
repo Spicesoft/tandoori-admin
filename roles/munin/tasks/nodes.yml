@@ -4,15 +4,40 @@
 - name: install munin
   apt: pkg=munin-node state=latest update_cache=yes
 
+- name: install plugin dependencies (database)
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - libredis-perl
+  when: munin_group == "database"
+
+- name: install plugin dependencies (middleware)
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - python-psutil
+  when: munin_group == "database"
+
 - name: Install contrib additional plugins.
   git:
     repo=https://github.com/munin-monitoring/contrib.git
     dest=/usr/share/munin/contrib
 
-- name: Install pgpool plugin.
+- name: Install pgpool plugin (middleware).
   git:
     repo=https://github.com/vpetersson/munin_pgpool
     dest=/usr/share/munin/munin_pgpool
+  when: munin_group == "middleware"
+
+- name: Install uwsgi plugin (middleware).
+  git:
+    repo=https://github.com/lambdaq/munin-uwsgi-stats
+    dest=/usr/share/munin/munin-uwsgi-stats
+  when: munin_group == "middleware"
+  
+- name: Make plugins executable (middleware).
+  file: path={{ item }} owner=root group=root mode=0755
+  with_items:
+    - /usr/share/munin/munin_pgpool/pgpool_connections
+    - /usr/share/munin/munin-uwsgi-stats/uwsgi_
   when: munin_group == "middleware"
 
 - name: copy configuration file
@@ -33,6 +58,11 @@
   with_items: munin_node_plugins_{{ munin_group }}
   notify: restart munin-node
   tags: plugins
+
+- name: Setup cron task for apt plugin.
+  cron: name="apt-get update" minute=53
+        user="root" job="apt-get update > /dev/null 2>&1"
+        cron_file=munin-plugin-apt
 
 - name: Ensure munin-node is running.
   service: name=munin-node state=started enabled=yes
